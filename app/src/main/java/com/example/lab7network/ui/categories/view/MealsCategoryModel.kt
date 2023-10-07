@@ -11,8 +11,8 @@ class MealsCategoryModel(private val repository: CategoryRepository = CategoryRe
         errorCallback: (error: Throwable) -> Unit
     ) {
         println("ViewModel getMealsCategory Invoked with categoryId: $categoryId")
-
-        repository.getMealsCategory(categoryId,
+        repository.getMealsCategory("Seafood",
+        //repository.getMealsCategory(categoryId,
             successCallback = { response ->
                 successCallback(response)
             },

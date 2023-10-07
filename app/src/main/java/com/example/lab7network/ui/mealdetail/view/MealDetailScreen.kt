@@ -1,13 +1,13 @@
 package com.example.lab7network.ui.mealdetail.view
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.lab7network.navigation.response.MealDetailResponse
 
 @Composable
 fun MealDetailScreen(mealId: String) {
@@ -18,19 +18,32 @@ fun MealDetailScreen(mealId: String) {
     }
 
     val mealDetail by viewModel.mealDetail.collectAsState(null)
-    val isLoading by viewModel.isLoading.collectAsState(false)
-    val isError by viewModel.isError.collectAsState(false)
 
-    val currentMealId by rememberUpdatedState(mealId)
-
-    Column {
-        if (isLoading) {
-            Text("Cargando detalles de la comida...")
-        } else if (isError) {
-            Text("Se produjo un error al cargar los detalles de la comida")
-        } else if (mealDetail != null) {
-            Text(text = mealDetail!!.meals?.first()?.strMeal ?: "Nombre de la comida no disponible")
-            Text(text = mealDetail!!.meals?.first()?.strInstructions ?: "Instrucciones no disponibles")
-        }
-    }
+    RenderDishInfo(mealDetail)
 }
+
+@Composable
+fun RenderDishInfo(dishDetail: MealDetailResponse?) {
+    LazyColumn(content = {
+        item {
+            when (dishDetail) {
+                null -> ShowLoadingState()
+                else -> ShowDishData(dishDetail)
+            }
+        }
+    })
+}
+
+@Composable
+fun ShowDishData(dishData: MealDetailResponse) {
+    val dish = dishData.meals?.first()
+    Text(text = dish?.strMeal ?: "Esperando nombre del platillo...")
+    Text(text = dish?.strInstructions ?: "Instrucciones no disponibles")
+}
+
+@Composable
+fun ShowLoadingState() {
+    Text("Recopilando información del platillo...")
+}
+
+

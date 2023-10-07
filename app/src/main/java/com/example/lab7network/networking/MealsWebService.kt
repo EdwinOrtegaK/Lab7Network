@@ -37,7 +37,7 @@ class MealsWebService {
     fun getMealsCategory(categoryId: String): Call<CategoriesResponse> {
         val url = "$categoryId"
         println("WebService getMealsInCategory Invoked with URL: $url")
-        return api.getMealsInCategory("$categoryId")
+        return api.getMealsCategory("$categoryId")
     }
 
     suspend fun getMealDetail(mealId: String): MealDetailResponse? {

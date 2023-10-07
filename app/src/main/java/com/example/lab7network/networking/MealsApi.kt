@@ -12,8 +12,10 @@ interface MealsApi {
     fun getMeals(): Call<MealsCategoriesResponse>
 
     @GET("filter.php")
-    fun getMealsInCategory(@Query("c") categoryId: String): Call<CategoriesResponse>
+    fun getMealsCategory(@Query("c") categoryId: String): Call<CategoriesResponse>
 
     @GET("lookup.php")
     suspend fun getMealDetail(@Query("i") mealId: String): MealDetailResponse?
 }
+
+//https://www.themealdb.com/api/json/v1/1/categories.php

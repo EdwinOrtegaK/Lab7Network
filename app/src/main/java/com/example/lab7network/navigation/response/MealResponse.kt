@@ -6,7 +6,7 @@ data class MealsCategoriesResponse(val categories: List<MealResponse>)
 
 data class MealResponse(
     @SerializedName("idCategory") val idCategory: String,
-    @SerializedName("stringCategory") val name: String,
-    @SerializedName("stringCategoryDescription") val description: String,
-    @SerializedName("stringCategoryThumb") val imageUrl: String
+    @SerializedName("strCategory") val name: String,
+    @SerializedName("strCategoryThumb") val imageUrl: String,
+    @SerializedName("strCategoryDescription") val description: String
 )

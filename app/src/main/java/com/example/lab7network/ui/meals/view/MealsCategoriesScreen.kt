@@ -26,13 +26,13 @@ fun MealsCategoriesScreen(navController: NavController) {
     viewModel.getMeals(
         successCallback = { response ->
             response?.categories?.let { meals ->
+//                val filteredMeals = if (!categoryId.isNullOrBlank()) {
+//                    meals.filter { it.idCategory == categoryId }
+//                } else {
+//                    meals
+//                }
                 // Filtrar las comidas por idCategory si está presente
-                val filteredMeals = if (!categoryId.isNullOrBlank()) {
-                    meals.filter { it.idCategory == categoryId }
-                } else {
-                    meals
-                }
-                mealsState.value = filteredMeals
+                mealsState.value = meals
             }
         },
         errorCallback = { error ->
@@ -47,7 +47,7 @@ fun MealsCategoriesScreen(navController: NavController) {
                 text = AnnotatedString(text = meal.name),
                 onClick = { offset ->
                     // Navega a la pantalla de detalle pasando el id del meal
-                    navController.navigate("${NavigationState.Detail.route}/${meal.idCategory}")
+                    navController.navigate("${NavigationState.Category.route}/${meal.name}")
                 }
             )
         }
